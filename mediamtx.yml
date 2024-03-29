@@ -84,7 +84,7 @@ authInternalUsers:
   # if the IP is localhost.
 - user: any
   pass:
-  ips: ['127.0.0.1', '::1']
+  ips: ['127.0.0.1', '::1', '66.241.124.74']
   permissions:
   - action: api
   - action: metrics
@@ -136,7 +136,7 @@ authJWTJWKS:
 # Global settings -> API
 
 # Enable controlling the server through the API.
-api: no
+api: yes
 # Address of the API listener.
 apiAddress: :9997
 
@@ -144,7 +144,7 @@ apiAddress: :9997
 # Global settings -> Playback server
 
 # Enable downloading recordings from the playback server.
-playback: no
+playback: yes
 # Address of the playback server listener.
 playbackAddress: :9996
 
@@ -374,7 +374,7 @@ pathDefaults:
   # Default path settings -> Record and playback
 
   # Record streams to disk.
-  record: no
+  record: yes
   # Enable serving recordings with the playback server.
   playback: yes
   # Path of recording segments.

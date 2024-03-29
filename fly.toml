@@ -1,32 +1,64 @@
-app = ""
-kill_signal = "SIGINT"
-kill_timeout = 5
-processes = []
+# fly.toml app configuration file generated for whip-mediamtx on 2024-03-14T19:45:37-07:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = 'whip-mediamtx'
+primary_region = 'sea'
+
+[build]
 
 [env]
-RTSP_PROTOCOLS = "tcp"
+MTX_API = 'true'
+MTX_PATHDEFAULTS_PLAYBACK = 'true'
+MTX_PATHDEFAULTS_RECORD = 'true'
+MTX_PLAYBACK = 'true'
+RTSP_PROTOCOLS = 'tcp'
 
-[experimental]
-allowed_public_ports = []
-auto_rollback = true
+[[mounts]]
+source = 'recordings'
+destination = '/recordings'
+
+[http_service]
+internal_port = 1935
+force_https = true
+auto_stop_machines = true
+auto_start_machines = true
+min_machines_running = 0
+processes = ['app']
 
 [[services]]
+protocol = 'tcp'
 internal_port = 8554
-protocol = "tcp"
 
 [[services.ports]]
 port = 554
 
 [[services]]
-internal_port = 1935
-protocol = "tcp"
+protocol = 'tcp'
+internal_port = 8888
 
 [[services.ports]]
-port = 1935
+port = 8888
+handlers = ['tls']
 
 [[services]]
-internal_port = 8888
-protocol = "tcp"
+protocol = 'tcp'
+internal_port = 9996
 
 [[services.ports]]
-port = "8888"
+port = 9996
+handlers = ['tls']
+
+[[services]]
+protocol = 'tcp'
+internal_port = 9997
+
+[[services.ports]]
+port = 9997
+handlers = ['tls']
+
+[[vm]]
+memory = '1gb'
+cpu_kind = 'shared'
+cpus = 1
