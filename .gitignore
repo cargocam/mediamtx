@@ -4,3 +4,4 @@
 /apidocs/*.html
 **/hls.min.js
 mediamtx
+recordings/
